@@ -24,4 +24,9 @@ export default class Veiculo {
         this.aluguelIni = aluguelIni;
 
     }
+
+
+    cadastrar(listaVeiculos: Veiculo[]) {
+        
+    }
 }
