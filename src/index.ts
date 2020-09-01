@@ -1,5 +1,7 @@
 import * as inquirer from 'inquirer';
 import Veiculo from './entidades/Veiculo';
+import Carro from './entidades/Carro';
+import Moto from './entidades/Moto';
 
 // simula um banco de dados para armazernar os veiculos
 // salva durante a execução.
@@ -43,16 +45,25 @@ const menu = async () => {
       break;
     }
     case 1: {
+      await alugarVeiculo();
+      break;
     }
     case 2: {
     }
     case 3: {
+      await listarVeiculo()
+      break;
     }
     default:
       console.log('error');
       break;
   }
 };
+
+const listarVeiculo = async () => {
+  Veiculo.listar(listaVeiculos);
+  return menu();
+}
 
 const cadastarVeiculo = async () => {
   const resposta: Veiculo = await inquirer.prompt([
@@ -87,8 +98,27 @@ const cadastarVeiculo = async () => {
       ],
     },
   ]);
-  console.log(resposta);
+  let veiculo: Carro | Moto | undefined = undefined;
+
+  if(resposta.tipo === 'carro') {
+    veiculo = new Carro(resposta);
+  } else {
+    veiculo = new Moto(resposta);
+  }
+  await veiculo.cadastrar(listaVeiculos)
   return menu()
 };
+
+const alugarVeiculo =  async() => {
+  const {placa}: {placa: string} = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'placa',
+      message: 'Digite a placa do veiculo ?',
+    }])
+
+    console.log(placa);
+    return menu();
+}
 
 menu();

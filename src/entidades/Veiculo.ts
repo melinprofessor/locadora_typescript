@@ -26,7 +26,23 @@ export default class Veiculo {
     }
 
 
-    cadastrar(listaVeiculos: Veiculo[]) {
-        
+    async cadastrar(listaVeiculos: Veiculo[]) {
+        const existe = listaVeiculos.find((veiculo) => veiculo.placa === this.placa)
+        if(existe) {
+            console.log('Veiculo já esta cadastrado no sistema!');
+            return;
+        }
+        // this => esta classes
+        listaVeiculos.push(this);
+        console.log('Veiculo cadastrado com sucesso!')
+        return listaVeiculos;
+    }
+
+    static listar(listaVeiculos: Veiculo[]){
+        console.log(listaVeiculos);
+    }
+
+    static alugar(listaVeiculos: Veiculo[], placa: string) {
+        const veiculo = listaVeiculos.find((v) => v.placa === placa);
     }
 }
