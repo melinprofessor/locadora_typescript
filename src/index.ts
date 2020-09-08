@@ -49,6 +49,8 @@ const menu = async () => {
       break;
     }
     case 2: {
+      await devolverVeiculo();
+      break;
     }
     case 3: {
       await listarVeiculo()
@@ -117,7 +119,19 @@ const alugarVeiculo =  async() => {
       message: 'Digite a placa do veiculo ?',
     }])
 
-    console.log(placa);
+    Veiculo.alugar(listaVeiculos, placa);
+    return menu();
+}
+
+const devolverVeiculo =  async() => {
+  const {placa}: {placa: string} = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'placa',
+      message: 'Digite a placa do veiculo ?',
+    }])
+
+    Veiculo.devolver(listaVeiculos, placa);
     return menu();
 }
 

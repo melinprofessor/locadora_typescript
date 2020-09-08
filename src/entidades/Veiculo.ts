@@ -44,5 +44,25 @@ export default class Veiculo {
 
     static alugar(listaVeiculos: Veiculo[], placa: string) {
         const veiculo = listaVeiculos.find((v) => v.placa === placa);
+        if(!veiculo) {
+            console.log('Placa não encontrada!');
+            return;
+        }
+
+        veiculo.aluguelIni = new Date();
+        let fim = new Date()
+        fim.setDate(fim.getDate() + 5)
+        veiculo.aluguelFim = fim;
+    }
+
+    static devolver(listaVeiculos: Veiculo[], placa: string) {
+        const veiculo = listaVeiculos.find((v) => v.placa === placa);
+        if(!veiculo) {
+            console.log('Placa não encontrada!');
+            return;
+        }
+
+        veiculo.aluguelIni = null;
+        veiculo.aluguelFim = null;
     }
 }
